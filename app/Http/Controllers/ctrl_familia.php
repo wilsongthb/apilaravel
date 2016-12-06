@@ -50,7 +50,7 @@ class ctrl_familia extends Controller
     	$input = $request->all();
         //$create = DB::table('familia')->create($input);
         //return response($create);
-        $new_id = DB::select('select max(idfamilia) from familia LIMIT 1')[0]++;
+        $new_id = DB::select('select max(idfamilia) as maximo from familia LIMIT 1')[0]['maximo'];
         return [$input, $new_id];
     }
 
@@ -85,7 +85,18 @@ class ctrl_familia extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(DB::table('familia')
+            ->where('idfamilia', $id)
+            ->update([
+                'codfamilia' => $request->get('codigo'),
+                'desfamilia' => $request->get('descripcion')
+            ])
+        ){
+            return \Response::json(['codigo'=>'200']);
+        }else{
+            return \Response::json(['codigo'=>'300']);
+        };
+         
     }
 
     /**
@@ -98,13 +109,19 @@ class ctrl_familia extends Controller
     {
         //
     }
-    public function buscar(Request $request){
-        //return \Response::json($request);
-        return \Response::json(['data' => print_r($request, true)]);
-        /*
-        $desfamilia = $request->input('desfamilia');
-
-        print_r(DB::select('SELECT * FROM familia WHERE desfamilia like "%ACERO%"'));
-        */
+    public function delete($id){
+        DB::table('familia')->where('idfamilia', '=', $id)->delete();
+        //return "borrare$id";
+    }
+    public function crear(Request $request){
+        $id = $request->get('id');
+        $cod = $request->get('codigo');
+        $des = $request->get('descripcion');
+        DB::table('familia')->insert([
+            'idfamilia' => $id,
+            'codfamilia' => $cod,
+            'desfamilia' => $des
+        ]);
+        return \Response::json(['codigo'=>'200']);
     }
 }

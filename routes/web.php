@@ -23,5 +23,11 @@ Route::group([
     'prefix' => 'api', 
     'middleware' => 'cors'
     ], function(){
+    
+
+    Route::get('familia/post', 'ctrl_familia@crear');
+    Route::get('familia/put/{id}', 'ctrl_familia@update');
+    Route::get('familia/delete/{id}', 'ctrl_familia@delete');
+
     Route::resource('familia', 'ctrl_familia');
 });
