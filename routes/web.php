@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+route::get('/familia', function(){
+    return view('api.familia');
+});
+Route::group([
+    'prefix' => 'api', 
+    'middleware' => 'cors'
+    ], function(){
+    Route::resource('familia', 'ctrl_familia');
+});
