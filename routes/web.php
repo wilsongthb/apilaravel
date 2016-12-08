@@ -30,4 +30,11 @@ Route::group([
     Route::get('familia/delete/{id}', 'ctrl_familia@delete');
 
     Route::resource('familia', 'ctrl_familia');
+
+    Route::group(['prefix' => 'vue'], function(){
+        Route::get('index', function(){
+            return view('api.familia');
+        });
+        Route::Resource('familia', 'vue_familia');
+    });
 });
