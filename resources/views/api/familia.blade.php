@@ -1,6 +1,5 @@
-hola
+@extends('layouts.app')
 
-<div id="app">
-    <crud link="/api/vue/familia"></crud>
-</div>
-<script src="/js/app.js"></script>
+@section('content')
+<crud link="/api/vue/familia"></crud>
+@endsection

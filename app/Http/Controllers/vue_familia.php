@@ -11,9 +11,18 @@ class vue_familia extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return \DB::table('familia')->paginate(15);
+        if($request->get('search')){
+            $items = \DB::table('familia')
+                ->select('*')
+                ->where("desfamilia", "LIKE", "%{$request->get('search')}%")
+                ->paginate(5);
+        }else{
+          $items = \DB::table('familia')->paginate(5);
+        }
+
+        return response($items);
     }
 
     /**
@@ -34,7 +43,9 @@ class vue_familia extends Controller
      */
     public function store(Request $request)
     {
-        return "<pre>".print_r($request);
+        
+        \DB::table('familia')->insert($request->all());
+        return response('ok');
     }
 
     /**
@@ -68,7 +79,14 @@ class vue_familia extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \DB::table('familia')
+            ->where('idfamilia', $id)
+            ->update([
+                'codfamilia' => $request->all()['params']['codfamilia'],
+                'desfamilia' => $request->all()['params']['desfamilia']
+            ]);
+        
+        return response('ok');
     }
 
     /**
@@ -79,6 +97,9 @@ class vue_familia extends Controller
      */
     public function destroy($id)
     {
-        //
+        \DB::table('familia')
+            ->where('idfamilia', $id)
+            ->delete();
+        return response("ok");
     }
 }

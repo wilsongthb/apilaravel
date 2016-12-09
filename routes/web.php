@@ -24,12 +24,10 @@ Route::group([
     'middleware' => 'cors'
     ], function(){
     
-
+    Route::get('familia', 'ctrl_familia@index');
     Route::get('familia/post', 'ctrl_familia@crear');
     Route::get('familia/put/{id}', 'ctrl_familia@update');
     Route::get('familia/delete/{id}', 'ctrl_familia@delete');
-
-    Route::resource('familia', 'ctrl_familia');
 
     Route::group(['prefix' => 'vue'], function(){
         Route::get('index', function(){
@@ -38,3 +36,6 @@ Route::group([
         Route::Resource('familia', 'vue_familia');
     });
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
