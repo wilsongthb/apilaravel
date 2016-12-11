@@ -111,7 +111,7 @@ class ctrl_familia extends Controller
     }
     public function delete($id){
         DB::table('familia')->where('idfamilia', '=', $id)->delete();
-        //return "borrare$id";
+        return \Response::json(['codigo'=>'200']);
     }
     public function crear(Request $request){
         $id = $request->get('id');
