@@ -31,9 +31,6 @@ Route::group([
     Route::get('familia/delete/{id}', 'ctrl_familia@delete');
 
     Route::get('medida','res_medida@index');
-
-    // Route::get('catalogo', 'res_catalogo@index');
-    // Route::get('catalogo/vista', 'res_catalogo@vista');
-    // Route::delete('catalogo/{id}', 'res_catalogo@destroy');
+    
     Route::resource('catalogo', 'res_catalogo');
 });
