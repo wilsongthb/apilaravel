@@ -131,6 +131,6 @@ class res_catalogo extends Controller
      */
     public function destroy($id)
     {
-        return \Response::json(['mensaje'=>'Voy a borrar '.$id]);
+        return \Response::json(['mensaje'=>'GG WP '.$id]);
     }
 }
