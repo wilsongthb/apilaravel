@@ -14,13 +14,21 @@ class ctrl_familia extends Controller
      */
     public function index(Request $request)
     {
+        $type_code = [
+            'id' => 'idfamilia',
+            'cod' => 'codfamilia',
+            'des' => 'desfamilia'
+        ];
         if($request->get('search')){
+            if($request->get('type'))
+                $type = $type_code[$request->get('type')];
+            else
+                $type = $type_code['des'];
             $items = DB::table('familia')
                 ->select('*')
-                ->where("desfamilia", "LIKE", "%{$request->get('search')}%")
+                ->where($type, "LIKE", "%{$request->get('search')}%")
                 ->paginate(5);
         }else{
-		  //$items = Item::paginate(5);
           $items = DB::table('familia')->paginate(5);
         }
 

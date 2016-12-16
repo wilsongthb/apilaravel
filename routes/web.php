@@ -19,15 +19,21 @@ Route::get('/', function () {
 route::get('/familia', function(){
     return view('api.familia');
 });
+
 Route::group([
     'prefix' => 'api', 
     'middleware' => 'cors'
     ], function(){
     
-
+    Route::get('familia','ctrl_familia@index');
     Route::get('familia/post', 'ctrl_familia@crear');
     Route::get('familia/put/{id}', 'ctrl_familia@update');
     Route::get('familia/delete/{id}', 'ctrl_familia@delete');
 
-    Route::resource('familia', 'ctrl_familia');
+    Route::get('medida','res_medida@index');
+
+    // Route::get('catalogo', 'res_catalogo@index');
+    // Route::get('catalogo/vista', 'res_catalogo@vista');
+    // Route::delete('catalogo/{id}', 'res_catalogo@destroy');
+    Route::resource('catalogo', 'res_catalogo');
 });
